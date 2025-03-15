@@ -1,0 +1,33 @@
+/* Ensure the main container takes full width */
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0px;
+  text-align: center;
+}
+
+/* Logo Styling */
+.logo {
+  height: 5rem;
+  padding: 1rem;
+  transition: filter 300ms ease-in-out;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 1.5rem #ff6464aa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 1.5rem #f80000);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  #root {
+    max-width: 1280px;
+    padding: 2rem;
+  }
+
+  .logo {
+    height: 6rem;
+    padding: 1.5rem;
+  }
+}
