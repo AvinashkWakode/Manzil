@@ -143,7 +143,7 @@ const Magazines = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-100">
+    <div className="w-full min-h-screen">
       {!isOpen ? (
         <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {magazines.map((mag) => (
@@ -179,7 +179,7 @@ const Magazines = () => {
           ))}
         </div>
       ) : (
-        <div className="relative flex flex-col items-center w-full min-h-screen px-4 py-10 bg-gray-100">
+        <div className="relative flex flex-col items-center w-full min-h-screen px-4 py-10">
           <button
             onClick={closeReader}
             className="absolute z-20 p-2 text-black bg-white rounded-full top-4 right-4"

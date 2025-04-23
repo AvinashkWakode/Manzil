@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { User, Search, Menu, UserCircle } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Login from "./Login";
 import { motion } from "framer-motion";
+import Login from "./Login";
 
+// Dummy search data (can be replaced with real API later)
 const fetchSuggestions = async (term, category) => {
   const dummyData = {
     articles: ["AI in 2025", "React Best Practices", "Future of Tech"],
@@ -14,7 +15,6 @@ const fetchSuggestions = async (term, category) => {
   const results = dummyData[category]?.filter((item) =>
     item.toLowerCase().includes(term.toLowerCase())
   );
-
   return results || [];
 };
 
@@ -24,13 +24,15 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
-
   const currentSection = location.pathname.split("/")[1];
 
+  // Handle search input changes
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
+  // Handle search submit via 'Enter'
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
       navigate(`/search?query=${encodeURIComponent(searchTerm)}&section=${currentSection}`);
@@ -38,29 +40,30 @@ const Header = () => {
     }
   };
 
+  // Debounced search suggestions
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
-      if (searchTerm.trim().length > 0) {
+      if (searchTerm.trim()) {
         fetchSuggestions(searchTerm, currentSection).then(setSuggestions);
       } else {
         setSuggestions([]);
       }
     }, 300);
-
     return () => clearTimeout(delayDebounce);
   }, [searchTerm, currentSection]);
 
+  // Check for user login on route change
   useEffect(() => {
     const storedUser = localStorage.getItem("userData");
     setIsLoggedIn(!!storedUser);
   }, [location]);
 
-  const handleMyProfile = () => {
-    navigate("/Userdash");
-  };
+  // Navigate to User Dashboard
+  const handleMyProfile = () => navigate("/Userdash");
 
   return (
     <header className="w-full shadow-md bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300">
+      {/* Top Header: Logo, Search, Profile/Login */}
       <div className="flex items-center justify-between px-6 py-4 mx-6 md:mx-12 lg:mx-24">
         {/* Logo */}
         <a href="/home" className="flex items-center">
@@ -78,18 +81,18 @@ const Header = () => {
             onKeyDown={handleSearchSubmit}
             className="w-full ml-2 text-gray-700 focus:outline-none"
           />
-
+          {/* Dynamic Suggestions */}
           {suggestions.length > 0 && (
-            <ul className="absolute left-0 z-10 w-full mt-2 bg-white border border-gray-200 rounded-md shadow-lg top-full">
+            <ul className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-md shadow-lg top-full">
               {suggestions.map((suggestion, idx) => (
                 <li
                   key={idx}
-                  className="px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-blue-100"
                   onClick={() => {
                     setSearchTerm(suggestion);
                     navigate(`/search?query=${encodeURIComponent(suggestion)}&section=${currentSection}`);
                     setSuggestions([]);
                   }}
+                  className="px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-blue-100"
                 >
                   {suggestion}
                 </li>
@@ -98,9 +101,9 @@ const Header = () => {
           )}
         </div>
 
-        {/* Icons & Menu Button */}
+        {/* Profile/Login & Subscription Button */}
         <div className="flex items-center space-x-4">
-          {!isLoggedIn && (
+          {!isLoggedIn ? (
             <>
               <User
                 className="hidden w-6 h-6 text-gray-700 cursor-pointer md:block"
@@ -113,8 +116,7 @@ const Header = () => {
                 Subscription
               </button>
             </>
-          )}
-          {isLoggedIn && (
+          ) : (
             <button
               onClick={handleMyProfile}
               className="items-center hidden gap-2 px-5 py-2 text-white transition-all duration-300 rounded-full shadow-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 md:flex hover:from-indigo-600 hover:to-pink-600"
@@ -123,7 +125,7 @@ const Header = () => {
               My Profile
             </button>
           )}
-
+          {/* Mobile Menu Toggle (only one toggle button) */}
           <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
             <Menu className="w-6 h-6 text-gray-700" />
           </button>
@@ -133,7 +135,7 @@ const Header = () => {
       {/* Navigation Bar */}
       <nav className="px-6 pb-4 mx-6 md:mx-12 lg:mx-24">
         <div className="flex flex-col p-4 rounded-lg shadow-md bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400 md:flex-row md:justify-center">
-          <ul className="flex flex-col space-y-2 font-medium md:flex-row md:space-y-0 md:space-x-4">
+          <ul className="flex flex-col space-y-2 text-lg font-medium md:flex-row md:space-y-0 md:space-x-4">
             {["Home", "Magazines", "Articles", "Events", "About", "Contact"].map((item) => {
               const path = `/${item.toLowerCase()}`;
               const isActive = location.pathname === path;
@@ -156,6 +158,38 @@ const Header = () => {
         </div>
       </nav>
 
+      {/* Mobile Drawer Menu (Hidden by default and opens when menuOpen is true) */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50">
+          <motion.div
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 300 }}
+            transition={{ duration: 0.3 }}
+            className="absolute right-0 w-3/4 h-full p-6 bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400"
+          >
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="absolute text-xl text-white top-4 right-4"
+            >
+              ✖
+            </button>
+            <ul className="space-y-4 font-medium text-white">
+              {["Home", "Magazines", "Articles", "Events", "About", "Contact"].map((item) => {
+                const path = `/${item.toLowerCase()}`;
+                return (
+                  <li key={item}>
+                    <a href={path} className="block px-4 py-2 rounded hover:bg-blue-600">
+                      {item}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </motion.div>
+        </div>
+      )}
+
       {/* Login Modal */}
       {showLogin && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -166,8 +200,7 @@ const Header = () => {
             transition={{ duration: 0.3 }}
             className="absolute inset-0 bg-black bg-opacity-50"
             onClick={() => setShowLogin(false)}
-          ></motion.div>
-
+          />
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

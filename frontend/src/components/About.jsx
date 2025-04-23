@@ -2,7 +2,7 @@ import manzilImage from "/manzil1.png";
 
 const About = () => {
   return (
-    <div className="min-h-screen px-4 pt-10 text-gray-800 bg-gradient-to-b from-gray-100 to-gray-100 md:px-8 lg:px-10">
+    <div className="min-h-screen px-4 pt-10 text-gray-800 md:px-8 lg:px-10">
       <div className="w-full max-w-5xl p-6 mx-auto bg-white border border-gray-200 rounded-lg shadow-lg md:p-10 lg:p-12">
         <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
           {/* Text Content */}

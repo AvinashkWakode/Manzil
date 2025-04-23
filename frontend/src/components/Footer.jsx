@@ -45,29 +45,29 @@ const footerData = {
 
 const Footer = () => {
   return (
-    <footer className="w-full px-4 py-8 text-white bg-gradient-to-r from-blue-900 to-gray-800 md:px-16 lg:px-24">
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 gap-8 mx-auto text-sm sm:grid-cols-2 md:grid-cols-4 max-w-7xl">
-        {/* Dynamic Category Links */}
-        {footerData.categories.map((category, index) => (
-          <div key={index}>
-            <h4 className="mb-4 text-lg font-semibold text-white">{category.title}</h4>
-            <ul className="space-y-2">
-              {category.links.map((link, idx) => (
-                <li key={idx}>
+    <footer className="w-full px-4 py-10 text-white bg-gradient-to-r from-blue-500 to-indigo-600 md:px-16 lg:px-24">
+      {/* Grid Layout */}
+      <div className="grid grid-cols-1 gap-10 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {/* Category Columns */}
+        {footerData.categories.map((section, idx) => (
+          <div key={idx} className="text-left">
+            <h4 className="mb-4 text-lg font-semibold text-white">{section.title}</h4>
+            <ul className="space-y-3 text-sm">
+              {section.links.map((link, index) => (
+                <li key={index}>
                   {link.path.startsWith("http") ? (
                     <a
                       href={link.path}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white transition-opacity hover:opacity-75"
+                      className="text-white transition-colors hover:text-blue-900"
                     >
                       {link.name}
                     </a>
                   ) : (
                     <Link
                       to={link.path}
-                      className="text-white transition-opacity hover:opacity-75"
+                      className="text-white transition-colors hover:text-blue-500"
                     >
                       {link.name}
                     </Link>
@@ -79,21 +79,21 @@ const Footer = () => {
         ))}
 
         {/* Social Media */}
-        <div>
+        <div className="flex flex-col items-start space-y-3 text-left">
           <h4 className="mb-4 text-lg font-semibold text-white">Follow Us</h4>
-          <ul className="space-y-3">
+          <ul className="space-y-3 text-sm">
             {footerData.socialIcons.map((social, index) => (
               <li key={index}>
                 <a
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white transition-opacity hover:opacity-75"
+                  className="flex items-center gap-3 text-white transition-colors hover:text-blue-500"
                 >
                   <img
                     src={`https://www.google.com/s2/favicons?sz=64&domain=${social.link}`}
                     alt={social.icon}
-                    className="w-6 h-6"
+                    className="w-5 h-5"
                   />
                   {social.icon.charAt(0).toUpperCase() + social.icon.slice(1)}
                 </a>
@@ -102,13 +102,11 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Location Details */}
-        <div>
+        {/* Address */}
+        <div className="flex flex-col items-start space-y-3 text-left">
           <h4 className="mb-4 text-lg font-semibold text-white">Our Location</h4>
-          <address className="space-y-3 text-sm not-italic text-white">
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              📍 BVICAM, Paschim Vihar East, New Delhi, India
-            </div>
+          <address className="space-y-2 text-sm not-italic">
+            <div className="flex items-start gap-2">📍 BVICAM, Paschim Vihar East, New Delhi, India</div>
             <div className="flex items-center gap-2">📞 +91 98765 43210</div>
             <div className="flex items-center gap-2">✉️ manzil@bvicam.in</div>
             <div className="flex items-center gap-2">
@@ -117,7 +115,7 @@ const Footer = () => {
                 href="https://www.google.com/maps/place/Bharati+Vidyapeeth's+Institute+of+Computer+Applications+and+Management+(BVICAM)/@28.6755037,77.1106681,17z"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white transition-opacity hover:opacity-75"
+                className="text-white transition-colors hover:text-blue-500"
               >
                 View on Google Maps
               </a>
@@ -127,16 +125,16 @@ const Footer = () => {
       </div>
 
       {/* Footer Image */}
-      <div className="flex justify-center pt-8 mt-10 border-t border-gray-500">
+      <div className="flex justify-center pt-6 mt-10 border-t border-gray-700">
         <img
           src="/footer.png"
-          alt="Footer Visual"
-          className="w-full h-auto max-w-7xl"
+          alt="Footer visual"
+          className="w-full h-auto max-w-6xl"
         />
       </div>
 
-      {/* Copyright */}
-      <p className="mt-4 text-xs text-center text-white">
+      {/* Bottom Text */}
+      <p className="mt-6 text-xs text-center text-white">
         © 2025 BVICAM, New Delhi. All rights reserved.
       </p>
     </footer>

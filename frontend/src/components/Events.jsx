@@ -25,18 +25,12 @@ const Events = () => {
   };
 
   return (
-    <div className="min-h-screen px-4 py-10 bg-gray-100">
+    <div className="min-h-screen px-4 py-10">
       <h1 className="mb-10 text-3xl font-bold text-center text-gray-800">Our Webinars</h1>
       <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {events.map((event) => {
           const { id, attributes } = event;
-          const {
-            Title,
-            Date: eventDate,
-            Description,
-            Link,
-            Image,
-          } = attributes;
+          const { Title, Date: eventDate, Description, Link, Image } = attributes;
 
           const imageUrl = Image?.data?.attributes?.url;
 
@@ -73,7 +67,6 @@ const Events = () => {
                   )}
                 </div>
 
-                {/* Move date and button below the description */}
                 <div className="flex items-center justify-between mb-4">
                   <p className="text-sm text-gray-500">
                     {eventDate

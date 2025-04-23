@@ -14,20 +14,19 @@ import Home from "./components/Home";
 import MyCollections from "./components/MyCollections";
 import Userdash from "./components/Userdash";
 import Events from "./components/Events";
+import "./App.css"; 
 
-// Admin Panel Components
-import Viewarticle from "./Adminpanel/Viewarticle";
-import Addarticle from "./Adminpanel/Addarticle";
 
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-gradient-to-b from-white to-blue-50">
+    <div className="flex flex-col min-h-screen bg-white">
+
         {/* Header */}
         <Header />
 
         {/* Main Content */}
-        <main className="flex-grow px-4 sm:px-8 md:px-16 lg:px-24">
+        <main className="flex-grow px-2 sm:px-8 md:px-6 lg:px-4">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Home" element={<Home />} />
@@ -41,8 +40,7 @@ function App() {
             <Route path="/MyCollections" element={<MyCollections />} />
             <Route path="/Userdash" element={<Userdash />} />
             <Route path="/Events" element={<Events />} />
-            <Route path="/Adminpanel/Viewarticle" element={<Viewarticle />} />
-            <Route path="/Adminpanel/Addarticle" element={<Addarticle />} />
+            
           </Routes>
         </main>
 

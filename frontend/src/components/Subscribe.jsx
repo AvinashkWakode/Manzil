@@ -11,12 +11,12 @@ export default function SubscriptionPage() {
   };
 
   return (
-    <div className="min-h-screen px-6 py-12 text-gray-800 bg-gray-100 md:px-12 lg:px-24">
+    <div className="min-h-screen px-6 py-12 text-gray-800 md:px-12 lg:px-24">
       <h2 className="mb-8 text-3xl font-bold text-center">Our Membership</h2>
 
       <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto md:grid-cols-3">
         {/* Weekly Plan */}
-        <div className="p-6 text-center bg-white rounded-lg shadow-lg">
+        <div className="p-6 text-center rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold">
             MANZIL Premium <span className="font-bold">Weekly</span>
           </h3>
@@ -32,7 +32,7 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Monthly Plan */}
-        <div className="relative p-6 text-center bg-white border-2 border-blue-700 rounded-lg shadow-lg">
+        <div className="relative p-6 text-center border-2 border-blue-700 rounded-lg shadow-lg">
           <span className="absolute px-3 py-1 text-xs font-bold text-white uppercase transform -translate-x-1/2 bg-blue-700 rounded-full -top-4 left-1/2">
             Most Popular
           </span>
@@ -51,7 +51,7 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Annual Plan */}
-        <div className="relative p-6 text-center bg-white border-2 border-blue-700 rounded-lg shadow-lg">
+        <div className="relative p-6 text-center border-2 border-blue-700 rounded-lg shadow-lg">
           <span className="absolute px-3 py-1 text-xs font-bold text-white uppercase transform -translate-x-1/2 bg-blue-700 rounded-full -top-4 left-1/2">
             Best Deal
           </span>

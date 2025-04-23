@@ -28,7 +28,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
+    <div className="min-h-screen p-6">
       {/* Magazines Section */}
       <div className="mb-10">
         <h2 className="mb-4 text-3xl font-bold text-gray-800">Magazines</h2>

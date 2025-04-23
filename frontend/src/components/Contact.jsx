@@ -40,9 +40,7 @@ const Contact = () => {
 
     if (validateForm()) {
       try {
-        console.log("📤 Sending form data:", formData); // Debugging log
         const response = await submitContactMessage(formData);
-
         if (response.success) {
           setSuccessMessage("✅ Thank you! Your message has been sent successfully.");
           setFormData({ name: "", email: "", mobile: "", message: "" });
@@ -58,14 +56,14 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen px-4 pt-10 text-gray-800 bg-gradient-to-b from-gray-100 to-gray-200 md:px-8 lg:px-10">
-      <div className="w-full max-w-2xl p-6 mx-auto bg-white border border-gray-200 rounded-lg shadow-lg md:p-8 lg:p-10">
-        <p className="mb-5 text-center text-gray-700">
+    <div className="min-h-screen px-4 pt-10 text-gray-800 md:px-8 lg:px-10">
+      <div className="w-full max-w-2xl p-6 mx-auto text-left bg-white border border-gray-200 rounded-lg shadow-lg md:p-8 lg:p-10">
+        <p className="mb-5 text-gray-700">
           Have any questions? Fill out the form and we’ll get back to you!
         </p>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="block text-sm font-medium text-left text-gray-700">
               Full Name
             </label>
             <input
@@ -81,7 +79,7 @@ const Contact = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-left text-gray-700">
               Email Address
             </label>
             <input
@@ -97,7 +95,7 @@ const Contact = () => {
           </div>
 
           <div>
-            <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="mobile" className="block text-sm font-medium text-left text-gray-700">
               Mobile Number
             </label>
             <input
@@ -121,7 +119,7 @@ const Contact = () => {
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="message" className="block text-sm font-medium text-left text-gray-700">
               Your Message
             </label>
             <textarea
