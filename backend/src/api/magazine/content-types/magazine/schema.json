@@ -4,7 +4,8 @@
   "info": {
     "singularName": "magazine",
     "pluralName": "magazines",
-    "displayName": "Magazine"
+    "displayName": "magazine",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,24 +15,33 @@
     "Title": {
       "type": "string"
     },
-    "Content": {
-      "type": "blocks"
+    "CoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos",
+        "audios",
+        "files"
+      ]
     },
-    "Image": {
+    "Ebook": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
-    "PublishedDate": {
-      "type": "date"
-    },
-    "Price": {
-      "type": "integer"
+    "bookmark": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::bookmark.bookmark",
+      "inversedBy": "magazines"
     }
   }
 }

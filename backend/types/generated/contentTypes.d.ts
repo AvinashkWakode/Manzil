@@ -722,7 +722,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -773,16 +772,18 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   info: {
     singularName: 'article';
     pluralName: 'articles';
-    displayName: 'Article';
+    displayName: 'Articles';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     Title: Attribute.String;
+    Description: Attribute.Text;
     Content: Attribute.Blocks;
     Image: Attribute.Media;
-    PublishedDate: Attribute.Date;
+    Link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -801,26 +802,112 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
-export interface ApiBlogBlog extends Schema.CollectionType {
-  collectionName: 'blogs';
+export interface ApiBookmarkBookmark extends Schema.CollectionType {
+  collectionName: 'bookmarks';
   info: {
-    singularName: 'blog';
-    pluralName: 'blogs';
-    displayName: 'Blog';
+    singularName: 'bookmark';
+    pluralName: 'bookmarks';
+    displayName: 'bookmark';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String;
-    CoverImage: Attribute.Media;
-    PdfFile: Attribute.Media;
+    admin_user: Attribute.Relation<
+      'api::bookmark.bookmark',
+      'oneToOne',
+      'admin::user'
+    >;
+    magazines: Attribute.Relation<
+      'api::bookmark.bookmark',
+      'oneToMany',
+      'api::magazine.magazine'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+    createdBy: Attribute.Relation<
+      'api::bookmark.bookmark',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
-    updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
+    updatedBy: Attribute.Relation<
+      'api::bookmark.bookmark',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiContactmessagesContactmessages
+  extends Schema.CollectionType {
+  collectionName: 'contactmessage';
+  info: {
+    singularName: 'contactmessages';
+    pluralName: 'contactmessage';
+    displayName: 'contactmessages';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    email: Attribute.Email;
+    mobile: Attribute.String;
+    message: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contactmessages.contactmessages',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contactmessages.contactmessages',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEventEvent extends Schema.CollectionType {
+  collectionName: 'events';
+  info: {
+    singularName: 'event';
+    pluralName: 'events';
+    displayName: 'Event';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.Text;
+    Date: Attribute.DateTime;
+    Description: Attribute.Blocks;
+    Image: Attribute.Media;
+    Link: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -830,17 +917,21 @@ export interface ApiMagazineMagazine extends Schema.CollectionType {
   info: {
     singularName: 'magazine';
     pluralName: 'magazines';
-    displayName: 'Magazine';
+    displayName: 'magazine';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     Title: Attribute.String;
-    Content: Attribute.Blocks;
-    Image: Attribute.Media;
-    PublishedDate: Attribute.Date;
-    Price: Attribute.Integer;
+    CoverImage: Attribute.Media;
+    Ebook: Attribute.Media;
+    bookmark: Attribute.Relation<
+      'api::magazine.magazine',
+      'manyToOne',
+      'api::bookmark.bookmark'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -859,33 +950,36 @@ export interface ApiMagazineMagazine extends Schema.CollectionType {
   };
 }
 
-export interface ApiSignupSignup extends Schema.CollectionType {
-  collectionName: 'signups';
+export interface ApiPaymentPayment extends Schema.CollectionType {
+  collectionName: 'payments';
   info: {
-    singularName: 'signup';
-    pluralName: 'signups';
-    displayName: 'Signup';
-    description: '';
+    singularName: 'payment';
+    pluralName: 'payments';
+    displayName: 'Payment';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    FullName: Attribute.Text;
-    ContactNumber: Attribute.BigInteger;
-    Email: Attribute.Email;
-    Password: Attribute.Password & Attribute.Private;
+    userId: Attribute.String;
+    email: Attribute.Email;
+    plan: Attribute.String;
+    amount: Attribute.Decimal;
+    method: Attribute.Enumeration<['PayPal', 'Razorpay', 'UPI', 'Card']>;
+    status: Attribute.Enumeration<['Success', 'Failed', 'Pending']>;
+    transactionId: Attribute.String;
+    timestamp: Attribute.DateTime;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::signup.signup',
+      'api::payment.payment',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::signup.signup',
+      'api::payment.payment',
       'oneToOne',
       'admin::user'
     > &
@@ -912,9 +1006,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::article.article': ApiArticleArticle;
-      'api::blog.blog': ApiBlogBlog;
+      'api::bookmark.bookmark': ApiBookmarkBookmark;
+      'api::contactmessages.contactmessages': ApiContactmessagesContactmessages;
+      'api::event.event': ApiEventEvent;
       'api::magazine.magazine': ApiMagazineMagazine;
-      'api::signup.signup': ApiSignupSignup;
+      'api::payment.payment': ApiPaymentPayment;
     }
   }
 }

@@ -1,60 +1,76 @@
 import { useEffect, useState } from "react";
-import { fetchMagazines } from "./api";
+import { fetchMagazines } from "./api";  // Import the fetchMagazines function
+import { fetchArticles } from "./api";   // Import the fetchArticles function
 
 const Home = () => {
   const [magazines, setMagazines] = useState([]);
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    const getMagazines = async () => {
-      const data = await fetchMagazines();
-      setMagazines(data.slice(0, 10)); 
+    // Fetch Magazines
+    const loadMagazines = async () => {
+      const magazineData = await fetchMagazines();
+      setMagazines(magazineData);
     };
-    getMagazines();
+
+    // Fetch Articles
+    const loadArticles = async () => {
+      const articleData = await fetchArticles();
+      setArticles(articleData);
+    };
+
+    loadMagazines();
+    loadArticles();
   }, []);
 
+  const openPDF = (pdfUrl) => {
+    window.open(pdfUrl, "_blank"); // Opens the PDF in a new tab
+  };
+
   return (
-    <div className="min-h-screen px-4 py-8 bg-gradient-to-b from-gray-100 via-white to-white">
-      <div className="container mx-auto">
-        <h2 className="mb-6 text-3xl font-bold text-center text-blue-600">Latest Magazines</h2>
-
-        {magazines.length === 0 ? (
-          <p className="text-center text-gray-500">No magazines available.</p>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {magazines.map((magazine) => (
-              <div key={magazine.id} className="p-4 transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl">
-                {/* Title centered above the image */}
-                <h3 className="text-xl font-bold text-center text-gray-800">{magazine.title}</h3>
-
-                {/* Image section */}
-                <div className="flex items-center justify-center w-full h-56 mt-4 bg-gray-200 rounded-lg">
-                  {magazine.image ? (
-                    <img
-                      src={magazine.image}
-                      alt={magazine.title}
-                      className="object-cover max-w-full max-h-full rounded-lg"
-                    />
-                  ) : (
-                    <p className="text-gray-500">No Image Available</p>
-                  )}
-                </div>
-
-                {/* Published date and price on the same line */}
-                <div className="flex items-center justify-between mt-2">
-                  <small className="text-xs text-gray-500">Published on: {magazine.publishedDate}</small>
-                  <div className="text-sm font-semibold text-gray-800">
-                    ₹{magazine.price ? magazine.price : "N/A"}
-                  </div>
-                </div>
-
-                {/* Slim Buy Button */}
-                <button className="w-full px-4 py-2 mt-4 text-sm text-white transition-colors bg-blue-600 rounded-full hover:bg-blue-700">
-                  Buy Now
-                </button>
+    <div className="min-h-screen p-6 bg-gray-100">
+      {/* Magazines Section */}
+      <div className="mb-10">
+        <h2 className="mb-4 text-3xl font-bold text-gray-800">Magazines</h2>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {magazines.map((mag) => (
+            <div
+              key={mag.id}
+              className="overflow-hidden bg-white shadow-xl cursor-pointer rounded-2xl"
+              onClick={() => openPDF(mag.pdf)} // Open PDF when the card is clicked
+            >
+              <img
+                src={mag.cover}
+                alt={mag.title}
+                className="object-cover w-full h-60"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold text-gray-800">{mag.title}</h3>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Articles Section */}
+      <div>
+        <h2 className="mb-4 text-3xl font-bold text-gray-800">Articles</h2>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {articles.map((article) => (
+            <div key={article.id} className="overflow-hidden bg-white shadow-md rounded-2xl">
+              <img
+                src={article.image}
+                alt={article.title}
+                className="object-cover w-full h-40"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-800">{article.title}</h3>
+                <p className="text-sm text-gray-600">{article.description}</p>
+                <a href="#" className="block mt-2 text-blue-600">Read More</a>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

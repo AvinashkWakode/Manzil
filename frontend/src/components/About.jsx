@@ -1,31 +1,24 @@
-
-import manzilImage from "/manzil1.png"; 
+import manzilImage from "/manzil1.png";
 
 const About = () => {
   return (
-    <div className="bg-white text-gray-800 min-h-screen px-6 md:px-12 lg:px-14">
-      <div className="container mx-auto pt-10 md:pt-16 lg:pt-24">
-        {/* Heading */}
-        <h1 className="text-4xl font-extrabold text-center text-indigo-600 md:text-5xl">
-          About Us
-        </h1>
-
-        {/* Flex container for text and image */}
-        <div className="flex flex-col md:flex-row items-center justify-between mt-12 gap-8">
+    <div className="min-h-screen px-4 pt-10 text-gray-800 bg-gradient-to-b from-gray-100 to-gray-100 md:px-8 lg:px-10">
+      <div className="w-full max-w-5xl p-6 mx-auto bg-white border border-gray-200 rounded-lg shadow-lg md:p-10 lg:p-12">
+        <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
           {/* Text Content */}
-          <div className="w-full md:w-1/2 text-left md:text-justify space-y-6">
-            <p className="text-lg md:text-xl leading-relaxed">
-              Welcome to our magazine website! We offer the latest articles on various topics, ranging from 
-              technology, lifestyle, health, and more. Stay updated with fresh and dynamic content tailored to 
-              keep you informed and engaged.
+          <div className="w-full space-y-4 text-justify md:w-1/2 md:pr-6">
+            <p className="text-lg leading-relaxed md:text-xl">
+              Welcome to our magazine website! We offer the latest articles on various topics, including 
+              technology, lifestyle, health, and more. Stay updated with fresh and dynamic content tailored 
+              to keep you informed and engaged.
             </p>
-            <p className="text-lg md:text-xl leading-relaxed">
+            <p className="text-lg leading-relaxed md:text-xl">
               Bharati Vidyapeeth&apos;s Institute of Computer Applications and Management (BVICAM), New Delhi, is 
               one of the 187 institutions under Bharati Vidyapeeth, Pune. With a clear vision and mission to 
               serve the cause of higher education in India, the Institute started conducting the 
               Master of Computer Applications (MCA) programme from the academic year 2002-2003.
             </p>
-            <p className="text-lg md:text-xl leading-relaxed">
+            <p className="text-lg leading-relaxed md:text-xl">
               The Institute is affiliated with Guru Gobind Singh Indraprastha University (GGSIPU), 
               Sector 16C Dwarka, New Delhi-78. It is also approved by the All India Council for Technical 
               Education (AICTE), Ministry of HRD, Government of India, New Delhi.
@@ -33,12 +26,12 @@ const About = () => {
           </div>
 
           {/* Image Section */}
-          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+          <div className="flex justify-center w-full md:w-1/2 md:justify-end md:pl-6">
             <img
               src={manzilImage}
               alt="MANZIL"
-              className="rounded-lg shadow-lg max-w-full h-auto"
-              style={{ maxWidth: "450px" }} 
+              className="h-auto max-w-full rounded-lg shadow-lg"
+              style={{ maxWidth: "450px", height: "auto" }}
             />
           </div>
         </div>

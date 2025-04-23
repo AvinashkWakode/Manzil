@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { registerUser, loginUser } from "../components/api";
-import { useNavigate } from "react-router-dom"; // For redirection after login
-import { Eye, EyeOff } from "lucide-react"; // Ensure you have this installed
+import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,9 +13,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(null);
-  const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Toggle for confirm password visibility
+  const [, setPasswordValid] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,13 +23,11 @@ const Login = () => {
     setIsVisible(true);
   }, []);
 
-  /** ✅ Password Validation */
   const isValidPassword = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/;
     return passwordRegex.test(password);
   };
 
-  /** ✅ Handle Sign-Up */
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -74,7 +72,6 @@ const Login = () => {
     }
   };
 
-  /** ✅ Handle Login */
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -95,11 +92,9 @@ const Login = () => {
 
       if (response.success) {
         alert("✅ Login successful!");
-
         localStorage.setItem("userToken", response.token);
         localStorage.setItem("userData", JSON.stringify(response.user));
-
-        navigate("/dashboard");
+        navigate("/Userdash");
       } else {
         setError(response.message);
       }
@@ -109,9 +104,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-start justify-end min-h-screen p-4" style={{ marginTop: "16px", marginRight: "16px" }}>
+    <div className="p-4">
       <div
-        className={`w-full max-w-sm p-8 bg-white rounded-lg shadow-lg transition-transform duration-500 ${
+        className={`w-full max-w-2xl mx-auto p-10 bg-white transition-transform duration-500 ${
           isVisible ? "translate-y-0 opacity-100" : "-translate-y-12 opacity-0"
         }`}
       >
@@ -157,7 +152,7 @@ const Login = () => {
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
-              type="gmail"
+              type="email"
               className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -179,7 +174,7 @@ const Login = () => {
                 required
                 placeholder="Use Strong Password"
               />
-              <span 
+              <span
                 className="absolute text-lg cursor-pointer right-3 top-4"
                 onClick={() => setShowPassword(!showPassword)}
               >
@@ -199,7 +194,7 @@ const Login = () => {
                   required
                   placeholder="Re-enter your password"
                 />
-                <span 
+                <span
                   className="absolute text-lg cursor-pointer right-3 top-4"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
@@ -220,11 +215,23 @@ const Login = () => {
           <p className="text-sm text-gray-600">
             {isSignUp ? (
               <>
-                Already have an account? <span onClick={() => setIsSignUp(false)} className="text-blue-600 cursor-pointer hover:text-blue-700">Login</span>
+                Already have an account?{" "}
+                <span
+                  onClick={() => setIsSignUp(false)}
+                  className="text-blue-600 cursor-pointer hover:text-blue-700"
+                >
+                  Login
+                </span>
               </>
             ) : (
               <>
-                Don&apos;t have an account? <span onClick={() => setIsSignUp(true)} className="text-blue-600 cursor-pointer hover:text-blue-700">Sign Up</span>
+                Don&apos;t have an account?{" "}
+                <span
+                  onClick={() => setIsSignUp(true)}
+                  className="text-blue-600 cursor-pointer hover:text-blue-700"
+                >
+                  Sign Up
+                </span>
               </>
             )}
           </p>
