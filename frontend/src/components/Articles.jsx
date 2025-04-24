@@ -127,7 +127,7 @@ const Article = () => {
               />
               <div className="p-6">
                 <div className="flex justify-between mb-2 text-xs text-gray-400">
-                  <span>{article.author || "Unknown"}</span>
+                  <span>{article.author || ""}</span>
                   <span>{new Date(article.createdAt).toLocaleDateString()}</span>
                 </div>
                 <h3 className="mb-2 text-lg font-semibold text-gray-900">{article.title}</h3>

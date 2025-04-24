@@ -58,9 +58,10 @@ const Contact = () => {
   return (
     <div className="min-h-screen px-4 pt-10 text-gray-800 md:px-8 lg:px-10">
       <div className="w-full max-w-2xl p-6 mx-auto text-left bg-white border border-gray-200 rounded-lg shadow-lg md:p-8 lg:p-10">
-        <p className="mb-5 text-gray-700">
-          Have any questions? Fill out the form and we’ll get back to you!
-        </p>
+      <p className="mb-5 font-semibold text-center text-black-700">
+  Have any questions? Fill out the form and we’ll get back to you!
+</p>
+
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-left text-gray-700">
@@ -73,7 +74,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-md md:p-4 focus:ring-2 focus:ring-indigo-500"
-              placeholder="John Doe"
+              placeholder="Avinash..."
             />
             {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
           </div>
@@ -89,7 +90,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-md md:p-4 focus:ring-2 focus:ring-indigo-500"
-              placeholder="example@domain.com"
+              placeholder="example@gmail.com"
             />
             {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
           </div>

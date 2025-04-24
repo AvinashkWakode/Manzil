@@ -160,7 +160,7 @@ const Header = () => {
 
       {/* Mobile Drawer Menu (Hidden by default and opens when menuOpen is true) */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black bg-opacity-0">
           <motion.div
             initial={{ opacity: 0, x: 300 }}
             animate={{ opacity: 1, x: 0 }}
@@ -168,12 +168,6 @@ const Header = () => {
             transition={{ duration: 0.3 }}
             className="absolute right-0 w-3/4 h-full p-6 bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400"
           >
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="absolute text-xl text-white top-4 right-4"
-            >
-              ✖
-            </button>
             <ul className="space-y-4 font-medium text-white">
               {["Home", "Magazines", "Articles", "Events", "About", "Contact"].map((item) => {
                 const path = `/${item.toLowerCase()}`;
@@ -198,7 +192,7 @@ const Header = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-black bg-opacity-50"
+            className="absolute inset-0 bg-black bg-opacity-0"
             onClick={() => setShowLogin(false)}
           />
           <motion.div
@@ -208,12 +202,6 @@ const Header = () => {
             transition={{ duration: 0.3 }}
             className="relative w-[750px] max-w-full p-6 overflow-auto"
           >
-            <button
-              className="absolute text-gray-600 top-4 right-4 hover:text-gray-800"
-              onClick={() => setShowLogin(false)}
-            >
-              ✖
-            </button>
             <Login />
           </motion.div>
         </div>

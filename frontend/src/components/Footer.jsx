@@ -45,7 +45,8 @@ const footerData = {
 
 const Footer = () => {
   return (
-    <footer className="w-full px-4 py-10 text-white bg-gradient-to-r from-blue-500 to-indigo-600 md:px-16 lg:px-24">
+    <footer className="w-full px-6 py-4 text-white bg-gradient-to-r from-blue-900 to- to-gray-800 md:px-16 lg:px-24">
+      
       {/* Grid Layout */}
       <div className="grid grid-cols-1 gap-10 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {/* Category Columns */}
@@ -115,7 +116,7 @@ const Footer = () => {
                 href="https://www.google.com/maps/place/Bharati+Vidyapeeth's+Institute+of+Computer+Applications+and+Management+(BVICAM)/@28.6755037,77.1106681,17z"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white transition-colors hover:text-blue-500"
+                className="text-white transition-colors hover:text-blue-200"
               >
                 View on Google Maps
               </a>
@@ -125,16 +126,16 @@ const Footer = () => {
       </div>
 
       {/* Footer Image */}
-      <div className="flex justify-center pt-6 mt-10 border-t border-gray-700">
+      <div className="flex justify-center pt-6 mt-6 border-t-2 border-gray-800">
         <img
           src="/footer.png"
           alt="Footer visual"
-          className="w-full h-auto max-w-6xl"
+          className="w-full h-auto max-w-8xl"
         />
       </div>
 
       {/* Bottom Text */}
-      <p className="mt-6 text-xs text-center text-white">
+      <p className="mt-4 text-xs text-center text-white">
         © 2025 BVICAM, New Delhi. All rights reserved.
       </p>
     </footer>

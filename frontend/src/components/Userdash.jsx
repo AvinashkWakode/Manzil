@@ -1,6 +1,3 @@
-
-
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -55,7 +52,6 @@ const Userdash = () => {
   };
 
   const handleSubscribe = (plan) => {
-    
     if (!user) return navigate("/login");
     setSelectedPlan(plan);
     setShowPaymentPage(true);
@@ -70,10 +66,10 @@ const Userdash = () => {
     return <p className="mt-20 text-center text-gray-600">Loading user data...</p>;
 
   return (
-    <div className="min-h-screen p-4 bg-gradient-to-tr from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen p-4">
       <div className="max-w-5xl mx-auto mt-10 space-y-8">
         {/* User Card */}
-        <div className="flex flex-col items-center justify-between p-6 bg-white shadow-xl rounded-xl md:flex-row">
+        <div className="flex flex-col items-center justify-between p-6 shadow-xl rounded-xl md:flex-row">
           <div className="flex flex-col items-center gap-6 md:flex-row">
             <UserCircle2 className="w-24 h-24 text-blue-500" />
             <div className="text-center md:text-left">
@@ -99,7 +95,7 @@ const Userdash = () => {
         </div>
 
         {/* Subscription Section */}
-        <div className="p-6 bg-white shadow-lg rounded-xl">
+        <div className="p-6 shadow-lg rounded-xl">
           <h2 className="mb-6 text-2xl font-semibold text-blue-700">
             Subscription Details
           </h2>
@@ -130,14 +126,12 @@ const Userdash = () => {
             </>
           ) : (
             <>
-              <p className="mb-6 text-gray-600">
-                Choose a subscription plan to get started:
-              </p>
+              
               <div className="grid gap-6 md:grid-cols-3">
                 {plans.map(({ title, price, label, badge, plan }, idx) => (
                   <div
                     key={idx}
-                    className={`relative bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md hover:shadow-xl transition ${
+                    className={`relative rounded-xl p-6 shadow-md hover:shadow-xl transition ${
                       badge ? "border-2 border-blue-700" : ""
                     }`}
                   >
@@ -153,7 +147,12 @@ const Userdash = () => {
                     </p>
                     <p className="mt-2 text-xs text-gray-500">{label}</p>
                     <button
-                      onClick={() => handleSubscribe({ plan, amount: parseInt(price.replace(/[^\d]/g, "")) })}
+                      onClick={() =>
+                        handleSubscribe({
+                          plan,
+                          amount: parseInt(price.replace(/[^\d]/g, "")),
+                        })
+                      }
                       className="w-full px-4 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                     >
                       Subscribe
@@ -169,19 +168,13 @@ const Userdash = () => {
       {/* Payment Modal */}
       {showPaymentPage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          className="fixed inset-0 z-50 flex items-center justify-center"
           onClick={closeModal}
         >
           <div
             className="relative w-full max-w-3xl p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={closeModal}
-              className="absolute text-2xl text-gray-500 top-2 right-2 hover:text-gray-700"
-            >
-              ✕
-            </button>
             <PaymentPage selectedPlan={selectedPlan} user={user} />
           </div>
         </div>
