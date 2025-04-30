@@ -100,7 +100,7 @@ const Current = () => {
 
   return (
     <div className="container px-4 py-8 mx-auto">
-     
+      <h1 className="mb-4 text-3xl font-bold text-center">Latest Magazines</h1>
 
       {/* Category Buttons */}
       <div className="flex flex-wrap justify-center gap-4 mb-6">

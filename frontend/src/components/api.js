@@ -69,6 +69,12 @@ export const loginUser = async (email, password) => {
   }
 };
 
+
+
+
+
+
+
 // Fetch Articles
 export const fetchArticles = async () => {
   try {
@@ -97,33 +103,14 @@ export const fetchArticles = async () => {
   }
 };
 
-// Fetch Blogs
-export const fetchBlogs = async () => {
-  try {
-    const response = await axiosInstance.get('/blog-pdfs?populate=*');
-    if (response?.data?.data) {
-      return response.data.data.map((blog) => {
-        const { attributes } = blog;
-        const coverImageUrl = getUrl(attributes.coverImage?.data?.[0]?.attributes?.url);
-        const pdfFileUrl = getUrl(attributes.pdfFile?.data?.[0]?.attributes?.url);
 
-        return {
-          id: blog.id,
-          title: attributes.title || 'No Title',
-          coverImage: coverImageUrl || 'No image available',
-          pdfFile: pdfFileUrl || 'No PDF available',
-          description: attributes.description || 'No description available',
-          publishedDate: attributes.publishedDate || 'Unknown date',
-        };
-      });
-    } else {
-      return [];
-    }
-  } catch (error) {
-    console.error('❌ Error fetching blogs:', error);
-    return [];
-  }
-};
+
+
+
+
+
+
+
 
 // Fetch Magazines
 export const fetchMagazines = async () => {
@@ -137,15 +124,18 @@ export const fetchMagazines = async () => {
 
         const coverImageUrl = getUrl(item.attributes.CoverImage?.data?.attributes?.url);
         const pdfFileUrl = getUrl(item.attributes.Ebook?.data?.attributes?.url);
+        const categoryName = item.attributes.category?.data?.attributes?.name || 'Uncategorized';
 
         console.log("Generated cover URL:", coverImageUrl);
         console.log("Generated PDF URL:", pdfFileUrl);
+        console.log("Category:", categoryName);
 
         return {
           id: item.id,
           title: item.attributes.Title || 'No Title',
           cover: coverImageUrl || 'No image available',
           pdf: pdfFileUrl || 'No PDF available',
+          category: categoryName,
         };
       });
     } else {
@@ -156,6 +146,17 @@ export const fetchMagazines = async () => {
     return [];
   }
 };
+
+
+
+
+
+
+
+
+
+
+
 
 // ✅ Fetch Events (Fixed)
 export const fetchEvent = async () => {

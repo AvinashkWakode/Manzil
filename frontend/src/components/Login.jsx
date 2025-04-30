@@ -111,9 +111,8 @@ const Login = () => {
       {isLoading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center">
           <svg className="w-16 h-16 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path
-              className="opacity-75"
               fill="currentColor"
               d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
             ></path>
@@ -213,24 +212,19 @@ const Login = () => {
             )}
             <button
               type="submit"
-              disabled={isLoading}
-              className="flex items-center justify-center w-full py-3 text-white transition bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="flex items-center justify-center w-full py-3 text-white transition bg-blue-600 rounded-md hover:bg-blue-700"
             >
               {isLoading && (
                 <svg className="w-5 h-5 mr-2 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                  ></path>
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
                 </svg>
               )}
               {isSignUp ? "Sign Up" : "Signin"}
             </button>
           </form>
 
-          <div className="mt-4 text-center"> 
+          <div className="mt-4 text-center">
             <p className="text-sm text-gray-600">
               {isSignUp ? (
                 <>

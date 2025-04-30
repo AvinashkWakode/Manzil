@@ -842,6 +842,41 @@ export interface ApiBookmarkBookmark extends Schema.CollectionType {
   };
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    magazines: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::magazine.magazine'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiContactmessagesContactmessages
   extends Schema.CollectionType {
   collectionName: 'contactmessage';
@@ -932,6 +967,11 @@ export interface ApiMagazineMagazine extends Schema.CollectionType {
       'manyToOne',
       'api::bookmark.bookmark'
     >;
+    category: Attribute.Relation<
+      'api::magazine.magazine',
+      'manyToOne',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1007,6 +1047,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::article.article': ApiArticleArticle;
       'api::bookmark.bookmark': ApiBookmarkBookmark;
+      'api::category.category': ApiCategoryCategory;
       'api::contactmessages.contactmessages': ApiContactmessagesContactmessages;
       'api::event.event': ApiEventEvent;
       'api::magazine.magazine': ApiMagazineMagazine;

@@ -9,6 +9,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 /* Links */
@@ -18,8 +19,12 @@ a {
 
 /* Body */
 body {
-  @apply flex items-center justify-center min-h-screen text-gray-900 bg-gray-200 dark:bg-gray-900 dark:text-gray-200;
+  @apply flex items-center justify-center min-h-screen text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-200;
+  margin-left: auto;  /* Centers content with equal left and right margins */
+  margin-right: auto; /* Centers content with equal left and right margins */
+  width: 100%;         
 }
+
 
 /* Headings */
 h1 {
@@ -34,6 +39,6 @@ button {
 /* Responsive Design */
 @media (min-width: 768px) {
   :root {
-    @apply text-gray-900 dark:text-gray-100;
+    @apply text-gray-900 dark:text-gray-900;
   }
 }

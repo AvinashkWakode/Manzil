@@ -12,13 +12,12 @@ body {
 #root {
   width: 100%;
   max-width: 95vw;
-  margin: 0 auto;
   padding: 0;
   text-align: center;
 }
 
 /* Improve scaling on larger screens */
-@media (min-width: 100%) {
+@media (min-width: 80%) {
   #root {
     max-width: 80vw;
     padding: 3vw;
@@ -27,21 +26,21 @@ body {
 
 /* Main layout adjustments */
 .main-content {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 @media (min-width: 768px) {
   .main-content {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
 @media (min-width: 1024px) {
   .main-content {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
