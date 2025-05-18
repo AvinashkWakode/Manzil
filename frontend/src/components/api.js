@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:1337/api';
-const STRAPI_URL = 'http://localhost:1337';
-
+const API_URL = import.meta.env.VITE_API_URL;
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
 const axiosInstance = axios.create({
   baseURL: API_URL,
 });
