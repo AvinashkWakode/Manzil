@@ -3,6 +3,7 @@ import axios from 'axios';
 import { fetchMagazines } from './api';
 import HTMLFlipBook from 'react-pageflip';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 
@@ -20,9 +21,13 @@ const Current = () => {
   const [selectedTitle, setSelectedTitle] = useState('');
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [selectedPublishedDate, setSelectedPublishedDate] = useState('');
+  const [userBookmarks, setUserBookmarks] = useState([]);
 
   const flipBookRef = useRef();
   const flipSound = useRef(null);
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +38,17 @@ const Current = () => {
         const magazineData = await fetchMagazines();
         magazineData.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
         setMagazines(magazineData);
+
+        if (user && token) {
+          const bookmarkRes = await axios.get(`http://localhost:1337/api/bookmarks?populate=magazine&filters[user][id][$eq]=${user.id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const bookmarkedIds = bookmarkRes.data.data.map((b) => b.attributes.magazine.data.id);
+          setUserBookmarks(bookmarkedIds);
+        }
+
         setLoading(false);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -41,9 +57,8 @@ const Current = () => {
     };
 
     fetchData();
-    
     flipSound.current = new Audio('/sound.mp3');
-  }, []);
+  }, [user, token]);
 
   const handlePdfSelect = (mag) => {
     setPdfUrl(mag.pdf);
@@ -96,19 +111,49 @@ const Current = () => {
     }
   };
 
+  const toggleBookmark = async (magId) => {
+    if (!user || !token) return alert("Please log in to bookmark.");
+
+    try {
+      if (userBookmarks.includes(magId)) {
+        // Remove bookmark (you must have unique constraint or get bookmark ID first)
+        const res = await axios.get(`http://localhost:1337/api/bookmarks?filters[user][id][$eq]=${user.id}&filters[magazine][id][$eq]=${magId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const bookmarkId = res.data.data[0]?.id;
+        if (bookmarkId) {
+          await axios.delete(`http://localhost:1337/api/bookmarks/${bookmarkId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setUserBookmarks(userBookmarks.filter((id) => id !== magId));
+        }
+      } else {
+        // Add bookmark
+        await axios.post('http://localhost:1337/api/bookmarks', {
+          data: {
+            user: user.id,
+            magazine: magId,
+          },
+        }, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUserBookmarks([...userBookmarks, magId]);
+      }
+    } catch (err) {
+      console.error('Error toggling bookmark:', err);
+    }
+  };
+
   if (loading) return <div className="py-20 text-lg font-semibold text-center">Loading...</div>;
 
   return (
     <div className="container px-4 py-8 mx-auto">
-     
-
       {/* Category Buttons */}
       <div className="flex flex-wrap justify-center gap-4 mb-6">
         <button
           onClick={() => setSelectedCategory(null)}
-          className={`px-4 py-2 border rounded-md ${
-            !selectedCategory ? 'bg-blue-600 text-white' : 'bg-gray-100 hover:bg-gray-200'
-          }`}
+          className={`px-4 py-2 border rounded-md ${!selectedCategory ? 'bg-blue-600 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
         >
           All
         </button>
@@ -116,11 +161,7 @@ const Current = () => {
           <button
             key={category.id}
             onClick={() => setSelectedCategory(category.attributes.name)}
-            className={`px-4 py-2 border rounded-md ${
-              selectedCategory === category.attributes.name
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 hover:bg-gray-200'
-            }`}
+            className={`px-4 py-2 border rounded-md ${selectedCategory === category.attributes.name ? 'bg-blue-600 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
           >
             {category.attributes.name}
           </button>
@@ -132,12 +173,12 @@ const Current = () => {
         {filteredMagazines.map((mag) => (
           <div
             key={mag.id}
-            onClick={() => handlePdfSelect(mag)}
-            className="block p-4 transition-transform transform bg-white border rounded-lg shadow-md cursor-pointer hover:scale-105"
+            className="relative block p-4 transition-transform transform bg-white border rounded-lg shadow-md cursor-pointer hover:scale-105"
           >
             <img
               src={mag.cover}
               alt={mag.title}
+              onClick={() => handlePdfSelect(mag)}
               className="object-cover w-full mb-4 rounded-md h-60"
             />
             <h3 className="mb-2 text-xl font-semibold text-gray-800">{mag.title}</h3>
@@ -145,6 +186,14 @@ const Current = () => {
               <p className="mb-1 text-sm text-gray-500">
                 Published: {new Date(mag.publishedAt).toLocaleDateString()}
               </p>
+            )}
+            {user && (
+              <button
+                onClick={() => toggleBookmark(mag.id)}
+                className="absolute text-xl text-blue-500 top-4 right-4 hover:text-blue-700"
+              >
+                {userBookmarks.includes(mag.id) ? <FaBookmark /> : <FaRegBookmark />}
+              </button>
             )}
           </div>
         ))}
@@ -161,7 +210,6 @@ const Current = () => {
               &times;
             </button>
 
-            {/* Title and Metadata */}
             <div className="mb-1 text-center">
               <h2 className="text-2xl font-bold text-gray-800">{selectedTitle}</h2>
               <div className="mt-1 text-sm text-gray-500">
@@ -173,7 +221,6 @@ const Current = () => {
             </div>
 
             <div className="relative flex items-center justify-center">
-              {/* Left Prev Arrow */}
               <button
                 onClick={goToPreviousPage}
                 className="absolute left-0 z-10 p-2 text-3xl text-blue-600 transform -translate-y-1/2 top-1/2 hover:text-blue-800"
@@ -201,7 +248,7 @@ const Current = () => {
                       const rightPage = i * 2 + 2;
 
                       return (
-                        <div key={i} className="p-4 ">
+                        <div key={i} className="p-4">
                           <div className="flex">
                             <div className="w-1/2">
                               {leftPage <= numPages && renderPage(leftPage)}
@@ -217,7 +264,6 @@ const Current = () => {
                 )}
               </Document>
 
-              {/* Right Next Arrow */}
               <button
                 onClick={goToNextPage}
                 className="absolute right-0 z-10 p-2 text-3xl text-blue-600 transform -translate-y-1/2 top-1/2 hover:text-blue-800"
@@ -225,7 +271,6 @@ const Current = () => {
                 &#8594;
               </button>
             </div>
-
           </div>
         </div>
       )}

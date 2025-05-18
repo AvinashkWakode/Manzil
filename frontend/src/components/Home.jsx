@@ -171,7 +171,7 @@ const Home = () => {
 
         {/* Articles Section */}
         <aside className="flex flex-col items-center w-full lg:w-1/4">
-          <h2 className="mb-2 text-2xl font-bold text-gray-800">Latest Articles</h2>
+          <h2 className="mb-2 text-2xl font-bold text-gray-800">Top Articles</h2>
           <div
             className="w-full p-8 bg-white border border-gray-200 max-h-[400px] overflow-y-scroll scrollbar-hide"
             ref={articlesRef}
@@ -258,8 +258,8 @@ const Home = () => {
 
 {/* Additional Articles Grid Section */}
 {articles.length > 0 && (
-  <div className="mt-16">
-    <h2 className="mb-6 text-2xl font-bold text-gray-900 text-center">Our Recent Articles</h2>
+  <div className="mt-20">
+    <h2 className="mb-6 text-4xl font-bold text-left text-black-900">Our Latest Articles</h2>
     <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     {articles.slice(0, 8).map((article, index) => (
 
@@ -278,9 +278,9 @@ const Home = () => {
           <div className="p-6">
             <div className="flex justify-between mb-2 text-xs text-gray-400">
               <span>{article.author || ""}</span>
-              <span>{new Date(article.createdAt).toLocaleDateString()}</span>
+              
             </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">{article.title}</h3>
+            <h3 className="mb-2 text-lg font-semibold text-left text-gray-900">{article.title}</h3>
             <p className="mb-4 text-sm text-justify text-gray-700">{article.description}</p>
             <div className="flex justify-end">
               
@@ -309,7 +309,7 @@ const Home = () => {
       {/* PDF FlipBook Modal */}
       {pdfUrl && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="relative bg-white p-2 rounded-xl max-w-[100%] max-h-[95%] overflow-auto">
+          <div className="relative bg-white p-8 rounded-xl max-w-[100%] max-h-[100%] overflow-auto">
             <button
               onClick={closeViewer}
               className="absolute text-2xl font-bold text-red-600 top-2 right-2 hover:text-red-700"

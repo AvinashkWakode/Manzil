@@ -53,7 +53,7 @@ const Article = () => {
       p.children?.map((child, i) => (
         <p
           key={`${idx}-${i}`}
-          className="mb-4 text-lg leading-relaxed text-gray-700"
+          className="mb-4 text-lg leading-relaxed text-justify text-gray-700"
         >
           {child.text}
         </p>

@@ -37,17 +37,17 @@
         "audios"
       ]
     },
-    "bookmark": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::bookmark.bookmark",
-      "inversedBy": "magazines"
-    },
     "category": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "magazines"
+    },
+    "bookmarks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bookmark.bookmark",
+      "mappedBy": "magazine"
     }
   }
 }

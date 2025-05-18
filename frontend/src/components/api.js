@@ -158,6 +158,9 @@ export const fetchMagazines = async () => {
 
 
 
+
+
+
 // ✅ Fetch Events (Fixed)
 export const fetchEvent = async () => {
   try {

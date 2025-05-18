@@ -14,7 +14,7 @@ FLUSH PRIVILEGES;
 
 
 
- USE manzildb;
+USE manzildb;
 
 CREATE TABLE contact_messages (
   id INT AUTO_INCREMENT PRIMARY KEY,

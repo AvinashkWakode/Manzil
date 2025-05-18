@@ -105,7 +105,7 @@ const Header = () => {
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.5 }}
                 whileHover={{ scale: 1.1 }}
-                className="relative m-1 overflow-hidden rounded-md border-2 border-indigo-600 px-4 py-2 font-medium text-indigo-600 transition duration-300 ease group"
+                className="relative px-4 py-2 m-1 overflow-hidden font-medium text-indigo-600 transition duration-300 border-2 border-indigo-600 rounded-md ease group"
               >
                 <span className="absolute w-64 h-0 transition-all duration-300 rotate-45 -translate-x-20 bg-blue-600 top-1/2 ease group-hover:h-64 group-hover:-translate-y-32"></span>
                 <span className="relative text-black transition duration-300 ease group-hover:text-white">
@@ -118,7 +118,7 @@ const Header = () => {
           <div className="hidden mr-8 md:block">
             {!isLoggedIn ? (
               <User
-                className="text-blue-900 transition-all duration-300 cursor-pointer w-11 h-11 hover:text-blue-500"
+                className="text-blue-900 transition-all duration-300 cursor-pointer w-11 h-11 hover:text-blue-500 "
                 onClick={() => setShowLogin(true)}
               />
             ) : (
@@ -198,7 +198,7 @@ const Header = () => {
                       setShowLogin(true);
                       setMenuOpen(false);
                     }}
-                    className="flex items-center w-full gap-2 px-4 py-2 text-left text-blue-600 transition-all duration-300 hover:text-blue-700 hover:bg-blue-100"
+                    className="flex items-center w-full gap-2 px-4 py-2 text-left text-blue-600 transition-all duration-300 hover:text-blue-700 hover:bg-blue-100 "
                   >
                     <User className="w-7 h-7 mr-[5px]" />
                     Login
@@ -241,7 +241,7 @@ const Header = () => {
       {/* Login Modal */}
       {showLogin && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center "
           onClick={() => setShowLogin(false)}
         >
           <motion.div

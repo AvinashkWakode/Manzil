@@ -13,9 +13,9 @@ import PaymentPage from "./PaymentPage";
 const plans = [
   {
     title: "MANZIL Premium Weekly",
-    price: "₹ 99 /-",
+    price: "₹ 1 /-",
     label: "7-day FREE TRIAL",
-    plan: "Weekly - ₹ 99 /-",
+    plan: "Weekly - ₹ 1 /-",
   },
   {
     title: "MANZIL Premium Monthly",

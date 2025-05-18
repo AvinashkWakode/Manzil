@@ -4,7 +4,7 @@
   "info": {
     "singularName": "bookmark",
     "pluralName": "bookmarks",
-    "displayName": "bookmark",
+    "displayName": "Bookmark",
     "description": ""
   },
   "options": {
@@ -12,16 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "admin_user": {
+    "users_permissions_user": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "admin::user"
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "bookmarks"
     },
-    "magazines": {
+    "magazine": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::magazine.magazine",
-      "mappedBy": "bookmark"
+      "inversedBy": "bookmarks"
     }
   }
 }

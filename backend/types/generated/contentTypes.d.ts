@@ -750,6 +750,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    bookmarks: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::bookmark.bookmark'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -807,21 +812,21 @@ export interface ApiBookmarkBookmark extends Schema.CollectionType {
   info: {
     singularName: 'bookmark';
     pluralName: 'bookmarks';
-    displayName: 'bookmark';
+    displayName: 'Bookmark';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    admin_user: Attribute.Relation<
+    users_permissions_user: Attribute.Relation<
       'api::bookmark.bookmark',
-      'oneToOne',
-      'admin::user'
+      'manyToOne',
+      'plugin::users-permissions.user'
     >;
-    magazines: Attribute.Relation<
+    magazine: Attribute.Relation<
       'api::bookmark.bookmark',
-      'oneToMany',
+      'manyToOne',
       'api::magazine.magazine'
     >;
     createdAt: Attribute.DateTime;
@@ -962,15 +967,15 @@ export interface ApiMagazineMagazine extends Schema.CollectionType {
     Title: Attribute.String;
     CoverImage: Attribute.Media;
     Ebook: Attribute.Media;
-    bookmark: Attribute.Relation<
-      'api::magazine.magazine',
-      'manyToOne',
-      'api::bookmark.bookmark'
-    >;
     category: Attribute.Relation<
       'api::magazine.magazine',
       'manyToOne',
       'api::category.category'
+    >;
+    bookmarks: Attribute.Relation<
+      'api::magazine.magazine',
+      'oneToMany',
+      'api::bookmark.bookmark'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
